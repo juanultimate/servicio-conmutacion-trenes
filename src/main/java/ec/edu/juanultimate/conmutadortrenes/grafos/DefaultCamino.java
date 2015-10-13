@@ -52,11 +52,11 @@ public class DefaultCamino<V extends Vertice, A extends Arista> implements Camin
 
     @Override
     public V getVerticeFin() {
-        V vertiveFin = null;
+        V verticeFin = null;
         if (!listAristas.isEmpty()) {
-            vertiveFin = (V) listAristas.get(listAristas.size() - 1).getVerticeFin();
+            verticeFin = (V) listAristas.get(listAristas.size() - 1).getVerticeFin();
         }
-        return vertiveFin;
+        return verticeFin;
     }
 
     @Override

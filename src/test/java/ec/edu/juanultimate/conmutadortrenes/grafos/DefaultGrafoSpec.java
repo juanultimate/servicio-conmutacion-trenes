@@ -4,17 +4,20 @@ import ec.edu.juanultimate.conmutadortrenes.grafos.dirigido.DefaultAristaDirigid
 import ec.edu.juanultimate.conmutadortrenes.grafos.dirigido.GrafoDirigido;
 import ec.edu.juanultimate.conmutadortrenes.servicio.Ciudad;
 
-import static org.junit.Assert.*;
-import static ec.edu.juanultimate.conmutadortrenes.grafos.Utils.*;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-/**
- * Created by JuanGabriel on 12/10/2015.
- */
+import static org.junit.Assert.*;
+import static ec.edu.juanultimate.conmutadortrenes.grafos.Utils.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+
+
 public class DefaultGrafoSpec {
     private GrafoDirigido<Ciudad, DefaultAristaDirigida> grafo;
 
@@ -49,9 +52,6 @@ public class DefaultGrafoSpec {
         assertTrue(grafo.agregarArista(construirUnaCiudad("C"), construirUnaCiudad("B")));
     }
 
-
-
-
     @Test
     public void cuandoSeQuiereAgregarUnaAristaExistenteEntoncesEstaNuevaReemplazaALaAnterior(){
         grafo.agregarArista(construirUnaCiudad("D"),construirUnaCiudad("E"));
@@ -59,11 +59,25 @@ public class DefaultGrafoSpec {
     }
 
 
-
     @Test
     public void cuandoSePideUnaAristaQueSiExisteEntoncesLaRetorna(){
-        grafo.agregarVertice(Utils.construirUnaCiudadX());
-        assertFalse(grafo.agregarVertice(Utils.construirUnaCiudadX()));
+       assertNotNull(grafo.getArista(construirUnaCiudad("A"), construirUnaCiudad("B")));
+    }
+    @Test
+    public void cuandoSePideUnaAristaQueNoExisteEntoncesRetornaNull(){
+        assertNull(grafo.getArista(construirUnaCiudad("D"), construirUnaCiudad("A")));
+    }
+
+    @Test
+    public void cuandoSePideUnaAristaCuyoVerticeNoExisteEntoncesRetornaExcepcion(){
+        expected.expect(IllegalArgumentException.class);
+        grafo.getArista(construirUnaCiudad("G"), construirUnaCiudad("H"));
+    }
+
+    @Test
+    public void cuandoSePideTodosLosVerticesEntoncesRetornaUnSetConVertices(){
+        assertThat(grafo.getTodosVertices(),containsInAnyOrder(getVerticesGrafoPrueba()));
+
     }
 
 
