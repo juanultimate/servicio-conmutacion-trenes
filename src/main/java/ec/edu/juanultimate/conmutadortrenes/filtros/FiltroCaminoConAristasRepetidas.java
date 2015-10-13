@@ -7,6 +7,11 @@ import ec.edu.juanultimate.conmutadortrenes.grafos.dirigido.AristaDirigida;
 import ec.edu.juanultimate.conmutadortrenes.grafos.dirigido.CaminoDirigido;
 
 
-public interface FiltroCamino<V extends Vertice, A extends Arista & AristaDirigida> {
-    boolean passFilter(final CaminoDirigido<V,A> camino);
+public class FiltroCaminoConAristasRepetidas<V extends Vertice, A extends Arista & AristaDirigida> implements FiltroCamino<V,A> {
+
+    @Override
+    public boolean passFilter(final CaminoDirigido<V,A> camino) {
+        return !camino.tieneAristasRepetidas();
+    }
+
 }
