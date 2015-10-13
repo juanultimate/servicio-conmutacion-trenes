@@ -11,14 +11,7 @@ import java.util.*;
  */
 public class DefaultGrafoDirigido<V extends Vertice, A extends AristaDirigida & Arista> extends DefaultGrafo<V,A> implements GrafoDirigido<V,A> {
 
-    /**
-     * Si en la definición se repite dos aristas la ultima sobreescribe a la primera.
-     * @param inicio
-     * @param fin
-     * @param ponderacion
-     * @return
-     */
-    @Override
+   @Override
     public boolean agregarArista(V inicio, V fin, int ponderacion) {
         validarExistenciaVertice(inicio);
         validarExistenciaVertice(fin);
