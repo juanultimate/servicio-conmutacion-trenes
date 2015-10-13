@@ -34,7 +34,7 @@ public class DefaultCaminoSpec {
         camino.agregarArista(cdArista);
     }
 
-    @Test()
+    @Test
     public void dadoUnaAristaNoConsecutivaEntoncesOcurreExcepcion() {
         DefaultAristaDirigida aristaNoConsecutiva = DefaultAristaDirigida.getNuevaAristaPonderada(construirUnaCiudad("A"), construirUnaCiudad("C"), 5);
         expected.expect(IllegalArgumentException.class);

@@ -1,7 +1,5 @@
 package ec.edu.juanultimate.conmutadortrenes.ingreso;
 
-import ec.edu.juanultimate.conmutadortrenes.ingreso.Instruccion;
-import ec.edu.juanultimate.conmutadortrenes.ingreso.InstruccionBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,19 +20,19 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class InstruccionBuilderTest {
+public class InstruccionBuilderSpec {
     @Mock
-    private PrintStream outputStream;
+    private PrintStream stream;
 
     private InstruccionBuilder builder;
 
     @Before
     public void initCommandBuilder() {
-        builder = new InstruccionBuilder(outputStream);
+        builder = new InstruccionBuilder(stream);
     }
 
     @Test
-    public void shouldReadEveryCommandFromFile() throws URISyntaxException, IOException {
+    public void debeLeerTodasLasInstrsuccionesDelArchivo() throws URISyntaxException, IOException {
         final File inputFile = new File(getClass().getResource("/test.txt").toURI());
        assertThat(builder.getInstruccionesDeArchivo(inputFile),containsInAnyOrder (getExpectedCommands().toArray()));
     }
@@ -44,12 +42,12 @@ public class InstruccionBuilderTest {
 
     private List<Instruccion> getExpectedCommands() {
         final List<Instruccion> instruccionEsperada = new ArrayList<Instruccion>();
-        instruccionEsperada.add(new InstruccionConstruirGrafo("Grafo: AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7",outputStream));
-        instruccionEsperada.add(new InstruccionDistanciaCamino("The distance of the route A-B-C", outputStream));
-        instruccionEsperada.add(new InstruccionPosiblesCaminos("The number of trips starting at C and ending at C with a maximum of 3 stops", outputStream));
-        instruccionEsperada.add(new InstruccionPosiblesCaminos("The number of trips starting at A and ending at C with exactly 4 stops", outputStream));
-        instruccionEsperada.add(new InstruccionDistanciaMinima("The length of the shortest route (in terms of distance to travel) from A to C", outputStream));
-        instruccionEsperada.add(new InstruccionPosiblesCaminos("The number of different routes from C to C with a distance of less than 30", outputStream));
+        instruccionEsperada.add(new InstruccionConstruirGrafo("Grafo: AB5, BC4, CD8, DC8, DE6, AD5, CE2, EB3, AE7", stream));
+        instruccionEsperada.add(new InstruccionDistanciaCamino("The distance of the route A-B-C", stream));
+        instruccionEsperada.add(new InstruccionPosiblesCaminos("The number of trips starting at C and ending at C with a maximum of 3 stops", stream));
+        instruccionEsperada.add(new InstruccionPosiblesCaminos("The number of trips starting at A and ending at C with exactly 4 stops", stream));
+        instruccionEsperada.add(new InstruccionDistanciaMinima("The length of the shortest route (in terms of distance to travel) from A to C", stream));
+        instruccionEsperada.add(new InstruccionPosiblesCaminos("The number of different routes from C to C with a distance of less than 30", stream));
         return instruccionEsperada;
     }
 

@@ -3,9 +3,7 @@ package ec.edu.juanultimate.conmutadortrenes.ingreso;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Created by JuanGabriel on 12/10/2015.
- */
+
 public class TripCommandSpec {
 
     @Test
