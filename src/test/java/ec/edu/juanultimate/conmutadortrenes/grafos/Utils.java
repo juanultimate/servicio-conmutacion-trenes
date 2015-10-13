@@ -10,11 +10,18 @@ import ec.edu.juanultimate.conmutadortrenes.servicio.Ciudad;
  */
 public class Utils {
 
-    public static Ciudad construirUnaCiudad(){
-        return Ciudad.construir("A");
+    public static Ciudad construirUnaCiudadX(){
+        return Ciudad.construir("X");
+    }
+    public static Ciudad construirUnaCiudadY(){
+        return Ciudad.construir("Y");
+    }
+    public static Ciudad construirUnaCiudad(String x){
+        return Ciudad.construir(x);
     }
 
-    public static GrafoDirigido<Ciudad, DefaultAristaDirigida> getTestingGraph() {
+
+    public static GrafoDirigido<Ciudad, DefaultAristaDirigida> getGrafoPrueba() {
         final GrafoDirigido<Ciudad, DefaultAristaDirigida> routeGraph = new DefaultGrafoDirigido<Ciudad, DefaultAristaDirigida>();
         final Ciudad nodeA = Ciudad.construir("A");
         final Ciudad nodeB = Ciudad.construir("B");
@@ -39,4 +46,5 @@ public class Utils {
         routeGraph.agregarArista(nodeA, nodeE, 7);
         return routeGraph;
     }
+
 }

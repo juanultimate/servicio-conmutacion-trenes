@@ -17,6 +17,18 @@ public class DefaultGrafo<V extends Vertice, A extends Arista> implements Grafo<
     }
 
     @Override
+    public boolean agregarArista(V inicio, V fin) {
+        validarExistenciaVertice(inicio);
+        validarExistenciaVertice(fin);
+        final A nuevaArista = DefaultArista.getNuevaArista(inicio, fin);
+        final Set<A> aristasExistentesInicio = aristas.get(inicio);
+        if (aristasExistentesInicio.contains(nuevaArista)) {
+            aristasExistentesInicio.remove(nuevaArista);
+        }
+        return aristas.get(inicio).add(nuevaArista);
+    }
+
+    @Override
     public A getArista(V inicio, V fin) {
         validarExistenciaVertice(inicio);
         validarExistenciaVertice(fin);
@@ -31,27 +43,17 @@ public class DefaultGrafo<V extends Vertice, A extends Arista> implements Grafo<
 
     private void validarVerticeNoNulo(final V vertice) {
         if (vertice == null) {
-            throw new IllegalArgumentException("Vértice no puede ser nulo");
+            throw new IllegalArgumentException("Vertice no puede ser nulo");
         }
     }
 
     protected void validarExistenciaVertice(final V vertice) {
         if (!aristas.containsKey(vertice)) {
-            throw new IllegalArgumentException("Vértice " + vertice + " no existe");
+            throw new IllegalArgumentException("Vertice " + vertice + " no existe");
         }
     }
 
-    @Override
-    public boolean agregarArista(V inicio, V fin) {
-        validarExistenciaVertice(inicio);
-        validarExistenciaVertice(fin);
-        final A nuevaArista = DefaultArista.getNuevaArista(inicio, fin);
-        final Set<A> aristasExistentesInicio = aristas.get(inicio);
-        if (aristasExistentesInicio.contains(nuevaArista)) {
-            aristasExistentesInicio.remove(nuevaArista);
-        }
-        return aristas.get(inicio).add(nuevaArista);
-    }
+
 
     @Override
     public Set<V> getTodosVertices() {
