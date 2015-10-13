@@ -6,7 +6,6 @@ import ec.edu.juanultimate.conmutadortrenes.servicio.ConmutadorTrenes;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -18,30 +17,30 @@ import static ec.edu.juanultimate.conmutadortrenes.grafos.Utils.*;
 @RunWith(MockitoJUnitRunner.class)
 public class InstruccionDistanciaMinimaSpec {
     @Mock
-    private ConmutadorTrenes commuter;
+    private ConmutadorTrenes conmutador;
     @Mock
-    private PrintStream stream;
+    private PrintStream salida;
 
-    private Instruccion command;
+    private Instruccion distanciaMinima;
 
     @Before
-    public void initCommand() {
-        command = new InstruccionDistanciaMinima("The length of the shortest route (in terms of distance to travel) from A to C", stream);
+    public void inicializarInstruccion() {
+        distanciaMinima = new InstruccionDistanciaMinima("The length of the shortest route (in terms of distance to travel) from A to C", salida);
     }
 
     @Test
-    public void shouldInvokeShortestDistance() {
+    public void dadaUnaInstruccionDeDistanciaMinimaEntoncesDebeInvocarAInstruccionDistanciaMinima() {
         final int distance = 5;
-        when(commuter.distanciaMasCorta(construirUnaCiudad("A"), construirUnaCiudad("C"))).thenReturn(distance);
-        command.ejecutar(commuter);
-        verify(stream).println(distance);
+        when(conmutador.distanciaMasCorta(construirUnaCiudad("A"), construirUnaCiudad("C"))).thenReturn(distance);
+        distanciaMinima.ejecutar(conmutador);
+        verify(salida).println(distance);
     }
 
 
     @Test
-    public void shouldPrintNoRouteWhenExceptionIsThrown() {
-        when(commuter.distanciaMasCorta(construirUnaCiudad("A"), construirUnaCiudad("C"))).thenThrow(CaminoNoEncontradoException.class);
-        command.ejecutar(commuter);
-        verify(stream).println(InstruccionCamino.MENSAJE_RUTA_NO_ENCONTRADA);
+    public void cuandoDistanciaMinimaLanzaExcepcionDebeMostrarMensajeRutaNoEncontrada() {
+        when(conmutador.distanciaMasCorta(construirUnaCiudad("A"), construirUnaCiudad("C"))).thenThrow(CaminoNoEncontradoException.class);
+        distanciaMinima.ejecutar(conmutador);
+        verify(salida).println(InstruccionCamino.MENSAJE_RUTA_NO_ENCONTRADA);
     }
 }

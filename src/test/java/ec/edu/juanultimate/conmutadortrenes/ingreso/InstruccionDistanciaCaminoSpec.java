@@ -22,24 +22,24 @@ public class InstruccionDistanciaCaminoSpec {
     @Mock
     private ConmutadorTrenes conmutador;
     @Mock
-    private PrintStream outputStream;
+    private PrintStream salida;
 
 
-    private InstruccionCamino instDistanciaCamino;
+    private InstruccionCamino distanciaCamino;
 
     @Before
-    public void intCommand() {
-        instDistanciaCamino = new InstruccionDistanciaCamino("The distance of the route A-B-C", outputStream);
+    public void inicializarInstruccion() {
+        distanciaCamino = new InstruccionDistanciaCamino("The distance of the route A-B-C", salida);
     }
 
     @Test
-    public void dadoUnaInstruccionDeDistanciaDebeInvocarAInstruccionCaminoDistancia() {
+    public void dadaUnaInstruccionDeDistanciaEntoncesDebeInvocarAInstruccionCaminoDistancia() {
         final List<Ciudad> intermedias = new ArrayList<Ciudad>();
         intermedias.add(construirUnaCiudad("B"));
         final int ditanciaCamino = 9;
         when(conmutador.distanciaRuta(construirUnaCiudad("A"), construirUnaCiudad("C"), intermedias)).thenReturn(ditanciaCamino);
-        instDistanciaCamino.ejecutar(conmutador);
-        verify(outputStream).println(ditanciaCamino);
+        distanciaCamino.ejecutar(conmutador);
+        verify(salida).println(ditanciaCamino);
     }
 
 
@@ -48,7 +48,7 @@ public class InstruccionDistanciaCaminoSpec {
         final List<Ciudad> intermedias = new ArrayList<Ciudad>();
         intermedias.add(construirUnaCiudad("B"));
         when(conmutador.distanciaRuta(construirUnaCiudad("A"), construirUnaCiudad("C"), intermedias)).thenThrow(CaminoNoEncontradoException.class);
-        instDistanciaCamino.ejecutar(conmutador);
-        verify(outputStream).println(InstruccionDistanciaCamino.MENSAJE_RUTA_NO_ENCONTRADA);
+        distanciaCamino.ejecutar(conmutador);
+        verify(salida).println(InstruccionDistanciaCamino.MENSAJE_RUTA_NO_ENCONTRADA);
     }
 }

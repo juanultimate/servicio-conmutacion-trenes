@@ -5,7 +5,6 @@ import ec.edu.juanultimate.conmutadortrenes.grafos.dirigido.GrafoDirigido;
 import ec.edu.juanultimate.conmutadortrenes.servicio.Ciudad;
 
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,14 +25,14 @@ public class DefaultGrafoSpec {
 
     @Before
     public void inicializarGrafo(){
-        grafo= Utils.getGrafoPrueba();
+        grafo= Utils.construirGrafoPrueba();
     }
 
     @Test
     public void cuandoSeAgregaUnVerticeNuloALGrafoEntoncesSeEsperaExcepcion(){
         expected.expect(IllegalArgumentException.class);
         grafo.agregarVertice(null);
-        fail("Debio lanzar una excepción");
+        fail("Debio lanzar una excepcion");
     }
 
     @Test

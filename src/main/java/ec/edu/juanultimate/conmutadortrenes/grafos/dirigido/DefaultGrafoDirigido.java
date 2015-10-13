@@ -6,9 +6,7 @@ import ec.edu.juanultimate.conmutadortrenes.filtros.FiltroCamino;
 
 import java.util.*;
 
-/**
- * Created by JuanGabriel on 11/10/2015.
- */
+
 public class DefaultGrafoDirigido<V extends Vertice, A extends AristaDirigida & Arista> extends DefaultGrafo<V,A> implements GrafoDirigido<V,A> {
 
    @Override

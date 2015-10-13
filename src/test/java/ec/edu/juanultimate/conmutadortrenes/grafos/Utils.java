@@ -1,10 +1,10 @@
 package ec.edu.juanultimate.conmutadortrenes.grafos;
 
-import ec.edu.juanultimate.conmutadortrenes.grafos.dirigido.DefaultAristaDirigida;
-import ec.edu.juanultimate.conmutadortrenes.grafos.dirigido.DefaultGrafoDirigido;
-import ec.edu.juanultimate.conmutadortrenes.grafos.dirigido.GrafoDirigido;
+import ec.edu.juanultimate.conmutadortrenes.grafos.dirigido.*;
 import ec.edu.juanultimate.conmutadortrenes.servicio.Ciudad;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +21,7 @@ public class Utils {
     }
     public static Ciudad construirUnaCiudad(String x){return Ciudad.construir(x);}
 
-    public static GrafoDirigido<Ciudad, DefaultAristaDirigida> getGrafoPrueba() {
+    public static GrafoDirigido<Ciudad, DefaultAristaDirigida> construirGrafoPrueba() {
         final GrafoDirigido<Ciudad, DefaultAristaDirigida> routeGraph = new DefaultGrafoDirigido<Ciudad, DefaultAristaDirigida>();
 
         final Ciudad nodeA = Ciudad.construir("A");
@@ -48,6 +48,19 @@ public class Utils {
     }
     public static Vertice[] getVerticesGrafoPrueba(){
         return new Vertice[]{Ciudad.construir("A"),Ciudad.construir("B"),Ciudad.construir("C"),Ciudad.construir("D"),Ciudad.construir("E")};
+    }
+
+    public static CaminoDirigido<Ciudad,DefaultAristaDirigida> construirCaminoPrueba(){
+        CaminoDirigido<Ciudad,DefaultAristaDirigida> camino;
+        camino = DefaultCaminoDirigido.getCaminoVacio();
+        camino.agregarArista(DefaultAristaDirigida.getNuevaAristaPonderada(construirUnaCiudad("W"),construirUnaCiudad("X"),3));
+        camino.agregarArista(DefaultAristaDirigida.getNuevaAristaPonderada(construirUnaCiudad("X"), construirUnaCiudad("Y"), 4));
+        camino.agregarArista(DefaultAristaDirigida.getNuevaAristaPonderada(construirUnaCiudad("Y"), construirUnaCiudad("Z"), 5));
+        return camino;
+    }
+
+    public static List<Ciudad> construirCiudadesIntermedias(Ciudad ... ciudades){
+        return Arrays.asList(ciudades);
     }
 
 

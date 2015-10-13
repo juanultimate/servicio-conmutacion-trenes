@@ -1,9 +1,9 @@
 package ec.edu.juanultimate.conmutadortrenes.ingreso;
 
 import ec.edu.juanultimate.conmutadortrenes.servicio.ConmutadorTrenes;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -18,40 +18,55 @@ public class InstruccionPosiblesCaminosSpec {
 
 
     @Mock
-    private ConmutadorTrenes commuter;
+    private ConmutadorTrenes conmutador;
     @Mock
-    private PrintStream stream;
-    @InjectMocks
-    private InstruccionPosiblesCaminos command;
+    private PrintStream salida;
+
+    private InstruccionPosiblesCaminos posiblesCaminos;
 
     @Test
-    public void shouldInvokeMaxStops() {
-        command = new InstruccionPosiblesCaminos("The number of trips starting at C and ending at C with a maximum of 3 stops", stream);
+    public void dadaUnaInstruccionDePosiblesCaminosEntoncesDebeInvocarAInstruccionPosiblesCaminos() {
+        posiblesCaminos = new InstruccionPosiblesCaminos("The number of trips starting at C and ending at C with a maximum of 3 stops", salida);
         final int caminos = 3;
-        when(commuter.numeroDeCaminosConMaximoParadas(construirUnaCiudad("C"), construirUnaCiudad("C"), 3)).thenReturn(caminos);
-        command.ejecutar(commuter);
-        verify(stream).println(caminos);
+        when(conmutador.numeroDeCaminosConMaximoParadas(construirUnaCiudad("C"), construirUnaCiudad("C"), 3)).thenReturn(caminos);
+        posiblesCaminos.ejecutar(conmutador);
+        verify(salida).println(caminos);
     }
 
     @Test
-    public void shouldInvokeMaxWeight() {
-        command = new InstruccionPosiblesCaminos("The number of different routes from C to C with a distance of less than 30", stream);
+    public void dadaUnaInstruccionDeDiferentesCaminosConMaximaDistanciaEntoncesDebeInvocarAInstruccionNumeroDeCaminosConDistanciaMaxima() {
+        posiblesCaminos = new InstruccionPosiblesCaminos("The number of different routes from C to C with a distance of less than 30", salida);
         final int weight = 5;
-        when(commuter.numeroDeCaminosConDistanciaMaxima(construirUnaCiudad("C"), construirUnaCiudad("C"), 30)).thenReturn(weight);
-        command.ejecutar(commuter);
-        verify(stream).println(weight);
+        when(conmutador.numeroDeCaminosConDistanciaMaxima(construirUnaCiudad("C"), construirUnaCiudad("C"), 30)).thenReturn(weight);
+        posiblesCaminos.ejecutar(conmutador);
+        verify(salida).println(weight);
     }
 
     @Test
-    public void shouldInvokeExactStops() {
-        command = new InstruccionPosiblesCaminos("The number of trips starting at A and ending at C with exactly 4 stops", stream);
+    public void dadaUnaInstruccionDeDiferentesCaminosConParadasExactasEntoncesDebeInvocarAInstruccionNumeroDeCaminosConParadasExactas() {
+        posiblesCaminos = new InstruccionPosiblesCaminos("The number of trips starting at A and ending at C with exactly 4 stops", salida);
         final int caminos = 5;
-        when(commuter.numeroDeCaminosConParadasExactas(construirUnaCiudad("A"), construirUnaCiudad("C"), 4)).thenReturn(caminos);
-        command.ejecutar(commuter);
-        verify(stream).println(caminos);
+        when(conmutador.numeroDeCaminosConParadasExactas(construirUnaCiudad("A"), construirUnaCiudad("C"), 4)).thenReturn(caminos);
+        posiblesCaminos.ejecutar(conmutador);
+        verify(salida).println(caminos);
     }
 
 
+    @Test
+    public void debeExtrarElValorDelFiltro() {
+        InstruccionPosiblesCaminos tc = new InstruccionPosiblesCaminos("The number of trips starting at C and ending at C with a maximum of 300000 stops", null);
+        Assert.assertEquals(300000, tc.getValorFiltro());
+    }
 
+    @Test
+    public void debeExtrarElNodoInicial() {
+        InstruccionPosiblesCaminos tc = new InstruccionPosiblesCaminos("The number of trips starting at C and ending at D with a maximum of 30 stops", null);
+        Assert.assertEquals("C", tc.getCiudadInicio());
+    }
 
+    @Test
+    public void debeExtrarElNodoFinal() {
+        InstruccionPosiblesCaminos tc = new InstruccionPosiblesCaminos("The number of trips starting at C and ending at D with a maximum of 30 stops", null);
+        Assert.assertEquals("D", tc.getCiudadFin());
+    }
 }
