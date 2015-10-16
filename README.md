@@ -43,8 +43,7 @@ Además se ha usado el algoritmo [Búsqueda en profundidad] para la búsqueda de
 Para la solución se ha usado el Lenguaje de Programación JAVA.
 A continuación se describe brevemente los paquetes creados:
 
-```ec.edu.juanultimate.conmutadortrenes.app```:
-Contiene la clase que ejecuta la  aplicación.
+```ec.edu.juanultimate.conmutadortrenes.app```:Contiene la clase que ejecuta la  aplicación.
 
 ```ec.edu.juanultimate.conmutadortrenes.excepcion```: Contiene las excepciones de la aplicación.
 
@@ -56,7 +55,7 @@ Contiene la clase que ejecuta la  aplicación.
 
 ```ec.edu.juanultimate.conmutadortrenes.servicio```: Contiene una representación del commutador de trenes de Kiwiland. Esta representación es como una fachada que se apoya de los demas componentes y los engrana para así concentrar todas las posibles opciones de procesamiento de la aplicación.
 
-### Puesta en marcha.
+### Puesta en marcha
 ##### Requisitos
 Para la ejecución del programa se requiere [Java 8] y [Gradle] v2.6 o superior*.
 
@@ -69,11 +68,16 @@ Para la ejecución del programa se requiere [Java 8] y [Gradle] v2.6 o superior*
 
 ##### Ejecución
 Para la ejecución se debe ejecutar siguiente procedimiento.
+
 1. Ubicarse sobre la raiz del proyecto. *[RAIZ_PROYECTO]*
+
 2. Abrir el archivo: *[RAIZ_PROYECTO]/src/main/resources/datos.txt*
+
 3. Ingresar los datos de ingreso.
+
 4. Volver a *[RAIZ_PROYECTO]*
-2. Ejecutar el comando:
+
+5. Ejecutar el comando:
     ```sh
     $ gradle clean run
     ```
